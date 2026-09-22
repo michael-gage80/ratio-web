@@ -1,6 +1,19 @@
-# Ratio — brand website
+# Ratio
 
-The marketing site for Ratio, the LLB learning game. Next.js 16 (App Router), React 19, Motion, GSAP (ScrollTrigger + SplitText) and Lenis. Every page is statically prerendered.
+**Think like a lawyer. Learn like a game.**
+
+Ratio is a learning game for LLB students in England and Wales. It teaches the law in short lessons, then asks you to apply it to facts you have never seen. Lessons are AI-drafted and signed off by qualified lawyers. Coming soon to iPhone.
+
+This repository is the website. The app lives elsewhere.
+
+## What’s here
+
+- **Five playable games**, inline on the home page: recall first, quick check, threshold, tap the fact, and the trap.
+- **A practice duel.** Three rounds against a sparring partner. The bot is labelled, and it never counts on the boards.
+- **The method, with sources.** Every claim about how people learn cites a peer-reviewed study with a DOI.
+- **Pages for universities, pricing, the founder and the press**, including logos, colours and boilerplate.
+
+The demo questions come from the Crime lesson drafts. Until a lawyer has signed them off, the site labels them “pending lawyer review”.
 
 ## Run it
 
@@ -10,40 +23,40 @@ npm run dev        # http://localhost:3000
 npm run build && npm start
 ```
 
-## Deploy to Vercel
+You need Node 20.9 or later. Every page is prerendered as static HTML.
 
-1. Push this folder to a Git repository (GitHub, GitLab or Bitbucket).
-2. In Vercel: **Add New → Project**, import the repo. Framework preset: Next.js. No build settings to change.
-3. Environment variables (Project → Settings → Environment Variables):
-   - `NEXT_PUBLIC_SITE_URL` — your real domain, e.g. `https://ratio.app` (used in metadata, sitemap and social cards).
-   - `NEXT_PUBLIC_ANALYTICS=1` — only after you enable **Web Analytics** in the Vercel project. It is cookie-free, so no banner is needed.
-4. Add your domain under Project → Settings → Domains.
+Two optional environment variables go in `.env.local` (see `.env.example`):
 
-## Before going live
+| Variable | What it does |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | The canonical domain, used in metadata, the sitemap and social cards. |
+| `NEXT_PUBLIC_ANALYTICS` | Set to `1` to turn on Vercel Web Analytics. It is cookie-free, so no banner is needed. |
 
-- **Email:** `lib/site.ts` → `email` is a placeholder (`hello@ratio.app`). Every form and mailto link reads from it.
-- **Founder portrait:** `app/about/page.tsx` has a monogram placeholder. Drop a photo into `public/` and swap the `.founder-frame` for an `<img>`.
-- **Privacy and terms:** `/privacy` and `/terms` are marked drafts and set to `noindex`. Replace them with reviewed text before collecting any data.
-- **Legal demo content:** the in-line games and the practice duel use items adapted from the Crime lesson drafts (v0.1.0). They are labelled "pending lawyer review" on the page. Remove that label only once the source lessons have `reviewedBy` set.
-- **Domain and trade mark:** the PRD still lists the UKIPO and App Store checks for "Ratio" as open.
+## How it’s built
 
-## Where things live
+Next.js 16 (App Router), React 19 and TypeScript. The motion comes from Motion, GSAP (ScrollTrigger and SplitText) and Lenis. The styles are plain CSS on shared design tokens, with no framework. The type is Newsreader and IBM Plex Mono.
 
 | Path | What |
 | --- | --- |
-| `lib/site.ts` | Name, URL, email, nav, analytics switch, `pageMeta()` helper |
-| `lib/content.ts` | All copy that is data: references (verified DOIs), mechanics, principles, modules, demo items, duel questions |
-| `styles/tokens.css` | Colour tokens (light, dark, and "moment" sections that stay dark in both) |
-| `components/motion/` | Lenis smooth scroll, SplitText reveals, cursor, magnetic and tilt, page-curtain transitions |
-| `components/screens/` | The app's screens rebuilt in HTML inside an iPhone frame |
-| `components/demos/` | Five playable in-line games and the three-round practice duel |
-| `components/home/` | Home page sections |
-| `public/press/` | Icon PNGs, SVGs and the zip offered on the press page |
-| `public/og/` | Social cards (1200×630) |
+| `lib/site.ts` | Name, URL, email, nav, and the metadata helper |
+| `lib/content.ts` | Copy that is data: references, mechanics, principles, modules, demos and duel questions |
+| `components/demos/` | The five games and the practice duel |
+| `components/screens/` | The app’s screens, rebuilt in HTML inside an iPhone frame |
+| `components/motion/` | Smooth scroll, text reveals, cursor, page transitions |
+| `styles/tokens.css` | Colour tokens for light, dark, and the sections that stay dark in both |
+| `public/press/` | Icons and the press kit |
 
-## Motion and accessibility
+To change the words, start in `lib/content.ts`.
 
-- Honours **Reduce Motion** everywhere: GSAP work runs inside `gsap.matchMedia("(prefers-reduced-motion: no-preference)")`, Motion uses `reducedMotion="user"`, Lenis and the custom cursor switch off, and the horizontal lesson scroll becomes a vertical stack.
-- Theme follows the system, with a three-way toggle (Auto, Light, Dark) stored in `localStorage`.
-- The custom cursor only appears on fine pointers. Touch devices keep native behaviour.
-- Forms are plain mailto links: nothing is stored by the site.
+## Principles, in code
+
+- **Reduce Motion is honoured everywhere.** GSAP only animates when motion is allowed, Lenis and the custom cursor switch off, and the horizontal lesson scroll becomes a vertical stack.
+- **Theme follows your system.** You can override it with Auto, Light or Dark.
+- **Nothing is stored.** Both forms open your email app with the message filled in. The site sets no cookies.
+- **Educational, not legal advice.**
+
+## Deploy
+
+The site is built for Vercel. Import the repository and keep the Next.js preset; there are no build settings to change. Then set the environment variables above.
+
+Launch tasks that are still open are listed in [`docs/launch-checklist.md`](docs/launch-checklist.md).
