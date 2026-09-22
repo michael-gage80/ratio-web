@@ -50,7 +50,7 @@ export function Mark({
 /** "Ratio." set in Newsreader italic with the round dot. */
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
-    <span className={`wordmark ${className}`} aria-label="Ratio">
+    <span className={`wordmark ${className}`} role="img" aria-label="Ratio">
       <span aria-hidden="true">Ratio</span>
       <span className="wm-dot" aria-hidden="true" />
     </span>

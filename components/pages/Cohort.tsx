@@ -1,3 +1,5 @@
+// biome-ignore-all lint/a11y/useSemanticElements: an ARIA table keeps the CSS grid heatmap layout.
+// biome-ignore-all lint/a11y/useFocusableInteractive: table rows and headers are not interactive.
 "use client";
 import { motion } from "motion/react";
 

@@ -41,6 +41,16 @@ export function TransitionProvider({ children }: { children: React.ReactNode }) 
     }
   }, [pathname, phase]);
 
+  // Never leave the curtain down: lift it if navigation fails or lands on a different path.
+  useEffect(() => {
+    if (phase !== "cover") return;
+    const t = window.setTimeout(() => {
+      pending.current = null;
+      setPhase("reveal");
+    }, 4000);
+    return () => window.clearTimeout(t);
+  }, [phase]);
+
   return (
     <TransitionCtx.Provider value={{ go }}>
       {children}

@@ -40,6 +40,7 @@ export default function TryIt() {
             {games.map((g, n) => (
               <button
                 key={g.key}
+                type="button"
                 role="tab"
                 id={`tab-${g.key}`}
                 aria-selected={n === i}

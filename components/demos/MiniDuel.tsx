@@ -30,11 +30,11 @@ export default function MiniDuel() {
   const settled = useRef(false);
   const q = duelQuestions[idx];
 
-  const clear = () => {
-    timers.current.forEach((t) => window.clearTimeout(t));
+  const clear = useCallback(() => {
+    for (const t of timers.current) window.clearTimeout(t);
     timers.current = [];
-  };
-  useEffect(() => clear, []);
+  }, []);
+  useEffect(() => clear, [clear]);
 
   const score = (w: Who) => results.filter((r) => r.point === w).length;
 
@@ -46,7 +46,7 @@ export default function MiniDuel() {
       setResults((rs) => [...rs, { q, ...r }]);
       setPhase("reveal");
     },
-    [q],
+    [q, clear],
   );
 
   const begin = () => {
@@ -59,7 +59,7 @@ export default function MiniDuel() {
     setIdx(i);
     setPhase("count");
     setCount(3);
-    [1, 2].forEach((k) => timers.current.push(window.setTimeout(() => setCount(3 - k), k * 700)));
+    for (const k of [1, 2]) timers.current.push(window.setTimeout(() => setCount(3 - k), k * 700));
     timers.current.push(window.setTimeout(() => startQuestion(i), 2100));
   };
 
@@ -159,7 +159,7 @@ export default function MiniDuel() {
             <p className="mono arena-sub">{botLocked && phase === "q" ? "Locked in" : "Bot · labelled · not on the boards"}</p>
           </div>
           <span className="arena-av bot" aria-hidden>
-            <svg viewBox="0 0 40 40">
+            <svg viewBox="0 0 40 40" aria-hidden>
               <circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" strokeWidth="1.2" />
               <circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="1.5 3" />
               <circle cx="20" cy="20" r="3" fill="currentColor" />
@@ -183,6 +183,7 @@ export default function MiniDuel() {
               <div className="arena-time" role="radiogroup" aria-label="Time per question">
                 <span className="mono">Time per question</span>
                 {[10, 15, 20].map((s) => (
+                  // biome-ignore lint/a11y/useSemanticElements: styled chips following the ARIA radio pattern.
                   <button key={s} type="button" role="radio" aria-checked={secs === s} className={`arena-tchip ${secs === s ? "on" : ""}`} onClick={() => setSecs(s)}>
                     {s} s{s > 10 ? " · extended" : ""}
                   </button>
@@ -292,6 +293,7 @@ export default function MiniDuel() {
                       </p>
                       <p>{last.reason}</p>
                     </div>
+                    {/* biome-ignore lint/a11y/noAutofocus: moves keyboard users straight to the next round. */}
                     <button type="button" className="btn btn-ink btn-sm" onClick={next} autoFocus>
                       {idx + 1 < duelQuestions.length ? "Next round" : "Enter judgment"} <span className="arrow">→</span>
                     </button>

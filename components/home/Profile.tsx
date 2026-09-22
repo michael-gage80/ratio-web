@@ -1,3 +1,4 @@
+// biome-ignore-all lint/correctness/useHookAtTopLevel: hooks run over fixed three-item arrays, so call order never changes.
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
@@ -20,8 +21,8 @@ const poly = (vals: number[]) => AX.map((ax, i) => pt(ax.a, vals[i]).join(",")).
 
 function useScores(p: MotionValue<number>) {
   // p: 0 → 1. Values settle from a neutral 50 towards the estimate; bands shrink from ±26 to the final σ.
-  const vals = AX.map((ax) => useTransform(p, [0, 1], [50, ax.v])); // eslint-disable-line react-hooks/rules-of-hooks
-  const sig = AX.map((ax) => useTransform(p, [0, 1], [26, ax.s])); // eslint-disable-line react-hooks/rules-of-hooks
+  const vals = AX.map((ax) => useTransform(p, [0, 1], [50, ax.v]));
+  const sig = AX.map((ax) => useTransform(p, [0, 1], [26, ax.s]));
   return { vals, sig };
 }
 
@@ -41,11 +42,11 @@ export default function Profile() {
   });
   const mid = useTransform(vals, (v: number[]) => poly(v));
   const label = (i: number) =>
-    useTransform([vals[i], sig[i]] as MotionValue<number>[], ([v, s]: number[]) => `${Math.round(v)} ±${Math.round(s)}`); // eslint-disable-line react-hooks/rules-of-hooks
+    useTransform([vals[i], sig[i]] as MotionValue<number>[], ([v, s]: number[]) => `${Math.round(v)} ±${Math.round(s)}`);
   const labels = [label(0), label(1), label(2)];
-  const barL = (i: number) => useTransform([vals[i], sig[i]] as MotionValue<number>[], ([v, s]: number[]) => `${v - s}%`); // eslint-disable-line react-hooks/rules-of-hooks
-  const barW = (i: number) => useTransform(sig[i], (s) => `${2 * s}%`); // eslint-disable-line react-hooks/rules-of-hooks
-  const dotL = (i: number) => useTransform(vals[i], (v) => `${v}%`); // eslint-disable-line react-hooks/rules-of-hooks
+  const barL = (i: number) => useTransform([vals[i], sig[i]] as MotionValue<number>[], ([v, s]: number[]) => `${v - s}%`);
+  const barW = (i: number) => useTransform(sig[i], (s) => `${2 * s}%`);
+  const dotL = (i: number) => useTransform(vals[i], (v) => `${v}%`);
   const bars = AX.map((_, i) => ({ l: barL(i), w: barW(i), d: dotL(i) }));
 
   return (
@@ -73,7 +74,7 @@ export default function Profile() {
             </p>
             <p className="muted small">Strong recall; application is your growth edge. It changes as your scores do.</p>
           </Reveal>
-          <p className="profile-formula mono" aria-label="Each answer updates a rating theta against item difficulty b; the uncertainty sigma shrinks as evidence builds.">
+          <p className="profile-formula mono" role="img" aria-label="Each answer updates a rating theta against item difficulty b; the uncertainty sigma shrinks as evidence builds.">
             p = 1 / (1 + e<sup>−(θ − b)</sup>) &nbsp;·&nbsp; θ′ = θ + K(σ)(y − p) &nbsp;·&nbsp; σ′ = max(σ<sub>min</sub>, σd)
           </p>
         </div>

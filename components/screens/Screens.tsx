@@ -49,7 +49,7 @@ export function TodayScreen() {
           <p className="scr-meta">This week</p>
           <p className="scr-mid">3 of 4 days</p>
           <div className="scr-week">
-            {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
+            {["M", "T", "W", "T", "F", "S", "S"].map((_d, i) => (
               <span key={i} className={i < 3 ? "on" : i === 3 ? "today" : ""} />
             ))}
           </div>
@@ -231,7 +231,7 @@ export function DebriefScreen() {
             <em className="ox">3 of 4.</em>
           </p>
         </div>
-        <svg className="scr-ringpct" viewBox="0 0 100 100">
+        <svg className="scr-ringpct" viewBox="0 0 100 100" aria-hidden>
           <circle cx="50" cy="50" r="42" fill="none" stroke="var(--sunk)" strokeWidth="6" />
           <circle
             cx="50"
