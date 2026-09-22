@@ -1,0 +1,105 @@
+/* Ratio design tokens — mirrors the app (Ratio-design-decisions v0.1). */
+
+:root {
+  --ink: #1d1b18;
+  --ink-2: #6b655c;
+  --bg: #f3f0e9; /* parchment */
+  --paper: #fdfcf8;
+  --sunk: #eae6dd;
+  --rule: #d9d4ca;
+  --rule-strong: #8c857a; /* inputs: 3.4:1, meets WCAG 1.4.11 */
+  --ox: #9b2a24; /* oxblood as text/accent */
+  --ox-fill: #9b2a24; /* oxblood as a surface with paper text */
+  --ox-wash: #f3e3e0;
+  --green: #1c7147;
+  --green-wash: #e1efe6;
+  --ochre: #946518;
+  --on-fill: #fdfcf8;
+  --glass: rgba(253, 252, 248, 0.62);
+  --glass-edge: rgba(29, 27, 24, 0.08);
+  --shadow: 0 1px 0 rgba(29, 27, 24, 0.04), 0 18px 50px -24px rgba(29, 27, 24, 0.28);
+
+  /* "Moments": full-bleed dark sections that stay dark in both themes. */
+  --m-bg: #1d1b18;
+  --m-paper: #26231f;
+  --m-ink: #f3f0e9;
+  --m-ink-2: #a9a195;
+  --m-rule: #3b3631;
+  --m-ox: #e27b73;
+
+  --serif: "Newsreader Variable", "Newsreader", "Iowan Old Style", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --r-card: 24px;
+  --r-btn: 18px;
+  --r-sheet: 32px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1); /* "ink settling" */
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1320px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #f3f0e9;
+    --ink-2: #aaa296;
+    --bg: #171513;
+    --paper: #211e1b;
+    --sunk: #2b2724;
+    --rule: #37322e;
+    --rule-strong: #7d766c;
+    --ox: #e27b73;
+    --ox-fill: #a8322b;
+    --ox-wash: #3a211e;
+    --green: #6cc096;
+    --green-wash: #1d2e25;
+    --glass: rgba(33, 30, 27, 0.6);
+    --glass-edge: rgba(243, 240, 233, 0.08);
+    --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 24px 60px -28px rgba(0, 0, 0, 0.8);
+    --m-bg: #0e0d0c;
+    --m-paper: #1a1816;
+    --m-rule: #2e2a26;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ink: #f3f0e9;
+  --ink-2: #aaa296;
+  --bg: #171513;
+  --paper: #211e1b;
+  --sunk: #2b2724;
+  --rule: #37322e;
+  --rule-strong: #7d766c;
+  --ox: #e27b73;
+  --ox-fill: #a8322b;
+  --ox-wash: #3a211e;
+  --green: #6cc096;
+  --green-wash: #1d2e25;
+  --glass: rgba(33, 30, 27, 0.6);
+  --glass-edge: rgba(243, 240, 233, 0.08);
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 24px 60px -28px rgba(0, 0, 0, 0.8);
+  --m-bg: #0e0d0c;
+  --m-paper: #1a1816;
+  --m-rule: #2e2a26;
+  color-scheme: dark;
+}
+
+/* Inside a moment, the page tokens are remapped so components just work. */
+.moment {
+  --ink: var(--m-ink);
+  --ink-2: var(--m-ink-2);
+  --paper: var(--m-paper);
+  --sunk: #2f2b27;
+  --rule: var(--m-rule);
+  --ox: var(--m-ox);
+  --ox-fill: #a8322b;
+  --green: #6cc096;
+  --glass: rgba(38, 35, 31, 0.6);
+  --glass-edge: rgba(243, 240, 233, 0.08);
+  background: var(--m-bg);
+  color: var(--ink);
+  color-scheme: dark;
+}
