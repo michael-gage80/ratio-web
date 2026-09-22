@@ -250,6 +250,7 @@
   align-items: center;
   gap: 0;
   height: 100vh;
+  /* biome-ignore lint/suspicious/noDuplicateProperties: 100vh is the fallback for browsers without svh. */
   height: 100svh;
 }
 .anat-intro {

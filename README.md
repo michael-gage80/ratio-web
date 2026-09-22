@@ -21,6 +21,7 @@ The demo questions come from the Crime lesson drafts. Until a lawyer has signed 
 npm install
 npm run dev        # http://localhost:3000
 npm run build && npm start
+npm run lint       # Biome
 ```
 
 You need Node 20.9 or later. Every page is prerendered as static HTML.

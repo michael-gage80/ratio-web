@@ -31,6 +31,7 @@ export default function Nav() {
     probe();
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-run on every route change.
   useEffect(() => {
     setOpen(false);
     const t = window.setTimeout(probe, 700);

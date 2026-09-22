@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import PageHero from "@/components/pages/PageHero";
 import SectionHead from "@/components/pages/SectionHead";
 import { Reveal, Stagger, RevealItem } from "@/components/motion/Reveal";
@@ -75,7 +76,7 @@ export default function Press() {
             </Reveal>
             <Reveal className="lockup card lockup-green" delay={0.24}>
               <div className="lockup-v">
-                <img src="/press/ratio-gold-default.svg" alt="" width={84} height={84} />
+                <Image src="/press/ratio-gold-default.svg" alt="" width={84} height={84} />
                 <Wordmark className="lockup-wm sm" />
               </div>
             </Reveal>
@@ -94,7 +95,7 @@ export default function Press() {
             {icons.map(([k, n, note]) => (
               <RevealItem key={k} className="icon-card" as="article">
                 <Tilt max={14} radius={40}>
-                  <img className="icon-img" src={`/press/ratio-${k}-default-1024.png`} alt={`Ratio app icon, ${n} colourway`} width={200} height={200} loading="lazy" />
+                  <Image className="icon-img" src={`/press/ratio-${k}-default-1024.png`} alt={`Ratio app icon, ${n} colourway`} width={200} height={200} />
                 </Tilt>
                 <p className="icon-name">
                   {n} {note && <span className="mono muted">· {note}</span>}

@@ -14,7 +14,7 @@ export default function LobbyCode() {
     return () => window.clearInterval(t);
   }, []);
   return (
-    <div className="lobby" aria-label="Example lobby code">
+    <div className="lobby" role="img" aria-label="Example lobby code">
       {code.split("").map((c, i) => (
         <span key={i} className="lobby-cell mono">
           <AnimatePresence mode="popLayout">

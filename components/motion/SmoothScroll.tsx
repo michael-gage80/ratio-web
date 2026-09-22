@@ -30,6 +30,7 @@ export default function SmoothScroll() {
   }, []);
 
   // New page: jump to top (or to the hash) and re-measure triggers once fonts are in.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-run on every route change.
   useEffect(() => {
     const hash = window.location.hash;
     const target = hash ? document.querySelector(hash) : null;
