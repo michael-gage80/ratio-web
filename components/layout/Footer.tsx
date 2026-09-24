@@ -40,10 +40,10 @@ export default function Footer() {
           <p className="eyebrow">Small print</p>
           <ul className="footer-list">
             <li>
-              <TLink href="/privacy" className="link-u">Privacy (draft)</TLink>
+              <TLink href="/privacy" className="link-u">Privacy notice</TLink>
             </li>
             <li>
-              <TLink href="/terms" className="link-u">Terms (draft)</TLink>
+              <TLink href="/terms" className="link-u">Terms of service</TLink>
             </li>
             <li>
               <TLink href="/#ambassadors" className="link-u">Founding ambassadors</TLink>
